@@ -15,7 +15,7 @@ from rest_framework_simplejwt.views import (
 schema_view = get_schema_view(
     openapi.Info(
         title="API Restaurante",
-        default_version='v1',
+        default_version="v1",
         description="Documentação da API do Sistema de Restaurante",
         terms_of_service="https://www.seusite.com/terms/",
         contact=openapi.Contact(email="contato@seusite.com"),

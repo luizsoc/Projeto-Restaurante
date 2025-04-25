@@ -89,14 +89,15 @@ class PedidoSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """Validações em nível de objeto"""
-        # Garante que apenas o dono do pedido pode modificá-lo
         request = self.context.get('request')
-        if request and hasattr(self, 'instance'):
+
+        # Só valida permissões se estiver atualizando um objeto existente
+        if self.instance:
             if self.instance.usuario != request.user and not request.user.is_staff:
                 raise serializers.ValidationError(
                     "Você não tem permissão para modificar este pedido."
                 )
-        
+
         return data
 
     def create(self, validated_data):
@@ -104,10 +105,10 @@ class PedidoSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request:
             validated_data['usuario'] = request.user
-        
+
         # Remove usuario_id se existir (usado apenas para escrita)
         validated_data.pop('usuario_id', None)
-        
+
         pedido = super().create(validated_data)
         pedido.calcular_total()
         return pedido

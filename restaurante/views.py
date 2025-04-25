@@ -76,6 +76,7 @@ class PedidoViewSet(viewsets.ModelViewSet):
         Cria um novo pedido associando automaticamente o usuário atual
         e calculando o total
         """
+        print(self.request.user)
         pedido = serializer.save(usuario=self.request.user)
         pedido.calcular_total()
 

@@ -13,11 +13,6 @@ def criar_usuarios():
     from django.contrib.auth.models import User
     
     users = [
-        # Superuser
-        {'username': 'admin_master', 'email': 'admin@restaurante.com', 'password': 'senha123', 'is_superuser': True, 'is_staff': True},
-        # Staff
-        {'username': 'gerente', 'password': 'senha123', 'is_staff': True},
-        # Usuários comuns
         {'username': 'cliente1', 'password': 'senha123'},
         {'username': 'cliente2', 'password': 'senha123'}
     ]
@@ -34,11 +29,12 @@ def criar_pratos():
     from restaurante.models import Prato
     
     cardapio = [
-        {'nome': 'Pizza Margherita', 'descricao': 'Molho de tomate, mussarela e manjericão', 'preco': 45.90},
-        {'nome': 'Hambúrguer Artesanal', 'descricao': 'Pão brioche, carne 180g e queijo cheddar', 'preco': 32.50},
-        {'nome': 'Salada Caesar', 'descricao': 'Alface romana, croutons e molho caesar', 'preco': 28.75},
-        {'nome': 'Sushi Sashimi', 'descricao': '10 peças de sashimi variado', 'preco': 59.90},
-        {'nome': 'Água Mineral', 'descricao': '500ml sem gás', 'preco': 5.00}
+        {'nome': 'Lasagna alla Bolognese', 'descricao': 'Massa em camadas com ragu de carne, molho bechamel e parmesão', 'preco': 46.90},
+        {'nome': 'Risotto ai Funghi', 'descricao': 'Arroz arbório cremoso com cogumelos porcini e parmesão', 'preco': 42.50},
+        {'nome': 'Gnocchi al Pesto', 'descricao': 'Nhoque de batata com molho pesto de manjericão e nozes', 'preco': 39.00},
+        {'nome': 'Spaghetti Carbonara', 'descricao': 'Espaguete com molho de ovos, queijo pecorino, pancetta e pimenta preta', 'preco': 44.75},
+        {'nome': 'Fettuccine Alfredo', 'descricao': 'Massa fettuccine com creme de leite, manteiga e parmesão', 'preco': 40.00},
+        {'nome': 'Polenta con Funghi', 'descricao': 'Polenta cremosa servida com cogumelos salteados e azeite trufado', 'preco': 36.80},
     ]
     
     for item in cardapio:
@@ -53,13 +49,13 @@ def criar_pedidos():
     # Pedido para cliente1
     cliente1 = User.objects.get(username='cliente1')
     pedido1 = Pedido.objects.create(usuario=cliente1)
-    pedido1.itens.set(Prato.objects.filter(id__in=[1, 2]))  # Pizza + Hambúrguer
+    pedido1.itens.set(Prato.objects.filter(id__in=[1, 2])) 
     pedido1.calcular_total()
     
     # Pedido para cliente2
     cliente2 = User.objects.get(username='cliente2')
     pedido2 = Pedido.objects.create(usuario=cliente2)
-    pedido2.itens.set(Prato.objects.filter(id__in=[3, 5]))  # Salada + Água
+    pedido2.itens.set(Prato.objects.filter(id__in=[3, 5]))  
     pedido2.calcular_total()
     
     print("✅ 2 pedidos criados!")
